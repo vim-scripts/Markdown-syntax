@@ -1,0 +1,6 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1242
+
+A syntax file for the Markdown text-to-HTML tool http://daringfireball.net/projects/markdown/
+
+The latest development version is available on Github at http://github.com/plasticboy/vim-markdown/
+Please submit patches there.
