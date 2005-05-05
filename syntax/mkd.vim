@@ -2,8 +2,8 @@
 " Language:	Markdown
 " Maintainer:	Ben Williams <benw@plasticboy.com>
 " URL:		http://plasticboy.com/markdown-vim-mode/
-" Version:	2
-" Last Change:  2005 March 21
+" Version:	3
+" Last Change:  2005 May 4
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
 "		easily conflict with HTML syntax
@@ -61,7 +61,7 @@ syn match  mkdRule      /^\s*-\{3,}$/
 syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\.\s\+"
-syn match  mkdCode      /^\(\s\{4,}\|[\t]\+\).*$/
+syn match  mkdCode      /^\(\s\{4,}\|[\t]\+\)[^*-+ ].*$/
 syn region mkdCode      start=/`/                   end=/`/
 syn region mkdCode      start=/\s*``[^`]*/ skip=/`/ end=/[^`]*``\s*/
 syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineContinue
