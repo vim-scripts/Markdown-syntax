@@ -2,8 +2,8 @@
 " Language:	Markdown
 " Maintainer:	Ben Williams <benw@plasticboy.com>
 " URL:		http://plasticboy.com/markdown-vim-mode/
-" Version:	3
-" Last Change:  2005 May 4
+" Version:	4
+" Last Change:  2005 August 24
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
 "		easily conflict with HTML syntax
@@ -40,9 +40,8 @@ syn region htmlBold     start=/\*\@<!\*\*\*\@!/     end=/\*\@<!\*\*\*\@!/   cont
 syn region htmlItalic   start=/\*\@<!\*\*\@!/       end=/*\@<!\*\*\@!/      contains=htmlBold 
 syn region htmlBold     start=/_\@<!___\@!/         end=/_\@<!___\@!/       contains=htmlItalic
 syn region htmlItalic   start=/_\@<!__\@!/          end=/_\@<!__\@!/        contains=htmlBold 
-syn region htmlString   start="("ms=e+1             end=")"me=s-1
-syn region mkdString    start="("ms=e+1             end=")"me=s-1
-syn region htmlLink     start="\["ms=s+1            end="\]"me=s-1
+syn region htmlString   start="]("ms=s+2             end=")"me=e-1
+syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1
 syn region htmlH1       start="#"                   end="\($\|#\+\)"
 syn region htmlH2       start="##"                  end="\($\|#\+\)"
 syn region htmlH3       start="###"                 end="\($\|#\+\)"
