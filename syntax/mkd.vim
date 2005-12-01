@@ -2,8 +2,8 @@
 " Language:	Markdown
 " Maintainer:	Ben Williams <benw@plasticboy.com>
 " URL:		http://plasticboy.com/markdown-vim-mode/
-" Version:	4
-" Last Change:  2005 August 24
+" Version:	5
+" Last Change:  2005 December 1
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
 "		easily conflict with HTML syntax
@@ -42,14 +42,6 @@ syn region htmlBold     start=/_\@<!___\@!/         end=/_\@<!___\@!/       cont
 syn region htmlItalic   start=/_\@<!__\@!/          end=/_\@<!__\@!/        contains=htmlBold 
 syn region htmlString   start="]("ms=s+2             end=")"me=e-1
 syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1
-syn region htmlH1       start="#"                   end="\($\|#\+\)"
-syn region htmlH2       start="##"                  end="\($\|#\+\)"
-syn region htmlH3       start="###"                 end="\($\|#\+\)"
-syn region htmlH4       start="####"                end="\($\|#\+\)"
-syn region htmlH5       start="#####"               end="\($\|#\+\)"
-syn region htmlH6       start="######"              end="\($\|#\+\)"
-syn match  htmlH1       /^.*\n=\+$/
-syn match  htmlH2       /^.*\n-\+$/
 
 "define Markdown groups
 syn match  mkdLineContinue ".$" contained
@@ -64,6 +56,16 @@ syn match  mkdCode      /^\(\s\{4,}\|[\t]\+\)[^*-+ ].*$/
 syn region mkdCode      start=/`/                   end=/`/
 syn region mkdCode      start=/\s*``[^`]*/ skip=/`/ end=/[^`]*``\s*/
 syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineContinue
+
+"HTML headings
+syn region htmlH1       start="#"                   end="\($\|#\+\)"
+syn region htmlH2       start="##"                  end="\($\|#\+\)"
+syn region htmlH3       start="###"                 end="\($\|#\+\)"
+syn region htmlH4       start="####"                end="\($\|#\+\)"
+syn region htmlH5       start="#####"               end="\($\|#\+\)"
+syn region htmlH6       start="######"              end="\($\|#\+\)"
+syn match  htmlH1       /^.\+\n=\+$/
+syn match  htmlH2       /^.\+\n-\+$/
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
