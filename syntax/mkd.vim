@@ -2,12 +2,11 @@
 " Language:	Markdown
 " Maintainer:	Ben Williams <benw@plasticboy.com>
 " URL:		http://plasticboy.com/markdown-vim-mode/
-" Version:	5
-" Last Change:  2005 December 1
+" Version:	6
+" Last Change:  2006 September 1
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
 "		easily conflict with HTML syntax
-" TODO: 	Do something appropriate with reference-style links
 " TODO: 	Do something appropriate with image syntax
 " TODO: 	Handle stuff contained within stuff (e.g. headings within blockquotes)
 
@@ -33,15 +32,18 @@ else
   command! -nargs=+ HtmlHiLink hi def link <args>
 endif
 
+syn spell toplevel
 syn case ignore
+syn sync linebreaks=1
 
 "additions to HTML groups
-syn region htmlBold     start=/\*\@<!\*\*\*\@!/     end=/\*\@<!\*\*\*\@!/   contains=htmlItalic
+syn region htmlBold     start=/\*\@<!\*\*\*\@!/     end=/\*\@<!\*\*\*\@!/   contains=@Spell,htmlItalic
 syn region htmlItalic   start=/\*\@<!\*\*\@!/       end=/*\@<!\*\*\@!/      contains=htmlBold 
 syn region htmlBold     start=/_\@<!___\@!/         end=/_\@<!___\@!/       contains=htmlItalic
 syn region htmlItalic   start=/_\@<!__\@!/          end=/_\@<!__\@!/        contains=htmlBold 
 syn region htmlString   start="]("ms=s+2             end=")"me=e-1
 syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1
+syn region htmlString   start="\(\[.*]: *\)\@<=.*"  end="$"
 
 "define Markdown groups
 syn match  mkdLineContinue ".$" contained
@@ -51,7 +53,7 @@ syn match  mkdRule      /^\s*_\s\{0,1}_\s\{0,1}_$/
 syn match  mkdRule      /^\s*-\{3,}$/
 syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
-syn match  mkdListItem  "^\s*\d\.\s\+"
+syn match  mkdListItem  "^\s*\d\+\.\s\+"
 syn match  mkdCode      /^\(\s\{4,}\|[\t]\+\)[^*-+ ].*$/
 syn region mkdCode      start=/`/                   end=/`/
 syn region mkdCode      start=/\s*``[^`]*/ skip=/`/ end=/[^`]*``\s*/
@@ -74,6 +76,7 @@ HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment
 HtmlHiLink mkdListItem      Identifier
 HtmlHiLink mkdRule          Identifier
+
 
 let b:current_syntax = "mkd"
 
