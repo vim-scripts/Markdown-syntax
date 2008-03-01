@@ -2,8 +2,8 @@
 " Language:	Markdown
 " Maintainer:	Ben Williams <benw@plasticboy.com>
 " URL:		http://plasticboy.com/markdown-vim-mode/
-" Version:	6
-" Last Change:  2006 September 1
+" Version:	7
+" Last Change:  2008 March 1
 " Remark:	Uses HTML syntax file
 " Remark:	I don't do anything with angle brackets (<>) because that would too easily
 "		easily conflict with HTML syntax
@@ -38,11 +38,11 @@ syn sync linebreaks=1
 
 "additions to HTML groups
 syn region htmlBold     start=/\*\@<!\*\*\*\@!/     end=/\*\@<!\*\*\*\@!/   contains=@Spell,htmlItalic
-syn region htmlItalic   start=/\*\@<!\*\*\@!/       end=/*\@<!\*\*\@!/      contains=htmlBold 
-syn region htmlBold     start=/_\@<!___\@!/         end=/_\@<!___\@!/       contains=htmlItalic
-syn region htmlItalic   start=/_\@<!__\@!/          end=/_\@<!__\@!/        contains=htmlBold 
+syn region htmlItalic   start=/\*\@<!\*\*\@!/       end=/*\@<!\*\*\@!/      contains=htmlBold,@Spell
+syn region htmlBold     start=/_\@<!___\@!/         end=/_\@<!___\@!/       contains=htmlItalic,@Spell
+syn region htmlItalic   start=/_\@<!__\@!/          end=/_\@<!__\@!/        contains=htmlBold,@Spell
 syn region htmlString   start="]("ms=s+2             end=")"me=e-1
-syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1
+syn region htmlLink     start="\["ms=s+1            end="\]"me=e-1 contains=@Spell
 syn region htmlString   start="\(\[.*]: *\)\@<=.*"  end="$"
 
 "define Markdown groups
@@ -54,20 +54,22 @@ syn match  mkdRule      /^\s*-\{3,}$/
 syn match  mkdRule      /^\s*\*\{3,5}$/
 syn match  mkdListItem  "^\s*[-*+]\s\+"
 syn match  mkdListItem  "^\s*\d\+\.\s\+"
-syn match  mkdCode      /^\(\s\{4,}\|[\t]\+\)[^*-+ ].*$/
+syn match  mkdCode      /^\s*\n\(\(\s\{4,}\|[\t]\+\)[^*-+ ].*\n\)\+/
 syn region mkdCode      start=/`/                   end=/`/
-syn region mkdCode      start=/\s*``[^`]*/ skip=/`/ end=/[^`]*``\s*/
-syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineContinue
+syn region mkdCode      start=/\s*``[^`]*/          end=/[^`]*``\s*/
+syn region mkdBlockquote start=/^\s*>/              end=/$/                 contains=mkdLineContinue,@Spell
+syn region mkdCode      start="<pre[^>]*>"         end="</pre>"
+syn region mkdCode      start="<code[^>]*>"        end="</code>"
 
 "HTML headings
-syn region htmlH1       start="#"                   end="\($\|#\+\)"
-syn region htmlH2       start="##"                  end="\($\|#\+\)"
-syn region htmlH3       start="###"                 end="\($\|#\+\)"
-syn region htmlH4       start="####"                end="\($\|#\+\)"
-syn region htmlH5       start="#####"               end="\($\|#\+\)"
-syn region htmlH6       start="######"              end="\($\|#\+\)"
-syn match  htmlH1       /^.\+\n=\+$/
-syn match  htmlH2       /^.\+\n-\+$/
+syn region htmlH1       start="^\s*#"                   end="\($\|#\+\)" contains=@Spell
+syn region htmlH2       start="^\s*##"                  end="\($\|#\+\)" contains=@Spell
+syn region htmlH3       start="^\s*###"                 end="\($\|#\+\)" contains=@Spell
+syn region htmlH4       start="^\s*####"                end="\($\|#\+\)" contains=@Spell
+syn region htmlH5       start="^\s*#####"               end="\($\|#\+\)" contains=@Spell
+syn region htmlH6       start="^\s*######"              end="\($\|#\+\)" contains=@Spell
+syn match  htmlH1       /^.\+\n=\+$/ contains=@Spell
+syn match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 
 "highlighting for Markdown groups
 HtmlHiLink mkdString	    String
